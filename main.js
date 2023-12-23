@@ -149,7 +149,7 @@ function draw(){
     });
     drawPlayField();
     drawTetromino();
-    console.table(playfield)
+    // console.table(playfield)
 }
 
 
@@ -232,7 +232,47 @@ function placeTetromino(){
             playfield[tetromino.row + row][tetromino.column + column] = tetromino.name;
         }
     }
+    const filledRows = findFilledRows();
+    console.log(filledRows);
+    removeFilledRows(filledRows);
+    
     generateTetromino();
+}
+
+// ! change for forEach()
+
+function findFilledRows() {
+    const filledRows = [];
+    for (let row = 0; row < PLAYFIELD_ROWS; row++) {
+        let filledColumns = 0;
+        for (let column = 0; column < PLAYFIELD_COLUMNS; column++) {
+            if (playfield[row][column] != 0) {
+                filledColumns++;
+            }
+        }
+        if (PLAYFIELD_COLUMNS === filledColumns) {
+            filledRows.push(row);
+        }
+    }
+    return filledRows;
+}
+
+function dropRowsAbove(rowDelete) {
+    for (let row = rowDelete; row > 0; row--) {
+        playfield[row] = playfield[row - 1];
+    }
+    playfield[0] = new Array(PLAYFIELD_COLUMNS).fill(0);
+}
+
+function removeFilledRows(filledRows) {
+    filledRows.forEach(row => {
+        dropRowsAbove(row);
+
+        // for (let i = 0; i < filledRows.length; i++) {
+        //     const row = filledRows[i];
+        //     dropRowsAbove(row)
+        // }
+})
 }
 
 function rotateMatrix(matrixTetromino) {
