@@ -318,3 +318,14 @@ let interval = setInterval(() => {
   moveAutoDown();
 }, 1700)
 
+// mouse controlls
+
+const down = document.querySelector('.down');
+const left = document.querySelector('.left');
+const right = document.querySelector('.right');
+const rotate = document.querySelector('.rotate');
+
+down.addEventListener('click', moveTetrominoDown);
+left.addEventListener('click', moveTetrominoLeft);
+right.addEventListener('click', moveTetrominoRight);
+rotate.addEventListener('click', rotateTetromino);

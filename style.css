@@ -70,3 +70,40 @@ body {
     align-items: center;
     font-size: 48px;
 }
+
+.controlls {
+     position: absolute;
+    bottom: 20%;
+    right: 5%;
+    width: 20%;
+    height: 30%;
+    font-size: 16px;
+    font-weight: 600;
+    color: rgb(252, 177, 36);
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    grid-template-rows: repeat(4, 40px);
+}
+
+.controlls__item {
+    display: flex;
+    align-items: center;   
+    padding-left: 10px;    
+}
+
+.controlls__item img {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.left-arrow {
+    transform: rotate(90deg);
+}
+
+.right-arrow {
+    transform: rotate(-90deg);
+}
+
+
+
