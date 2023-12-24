@@ -95,6 +95,7 @@ function generateTetromino() {
     const nameTetro = getRandomElement(TETROMINO_NAMES);
     const matrixTetro = TETROMINOES[nameTetro];
     const rowTetro = 0;
+    // const rowTetro = -2;
     const columnTetro = Math.floor(PLAYFIELD_COLUMNS / 2 - matrixTetro.length / 2);
     const colorTetro = randomColor();
 
@@ -120,7 +121,6 @@ function drawPlayField(){
             
         }
     }
-
 }
 
 function drawTetromino(){
@@ -134,13 +134,16 @@ function drawTetromino(){
             
             const cellIndex = convertPositionToIndex(tetromino.row + row, tetromino.column + column);
             cells[cellIndex].classList.add(name);
-            
-
         }
     }
 }
 
-drawTetromino();
+// drawTetromino();
+
+function moveAutoDown() {
+    draw();
+    moveTetrominoDown() 
+}
 
 function draw(){
     cells.forEach(function (cell) {
@@ -153,6 +156,7 @@ function draw(){
 }
 
 
+
 // klava
 
 document.addEventListener('keydown', onKeyDown);
@@ -160,7 +164,7 @@ document.addEventListener('keydown', onKeyDown);
 function onKeyDown(event) {
     // console.log(event);
     switch (event.key) {
-        case 'ArrowUp':
+        case ' ':
             rotateTetromino();
             break;
         case 'ArrowDown':
@@ -221,6 +225,7 @@ function isOutsideOfGameBoard(row, column){
 
 function hasCollisions(row, column) {
     return playfield[tetromino.row + row][tetromino.column + column];
+    // return playfield[tetromino.row + row]?.[tetromino.column + column];
 }
 
 function placeTetromino(){
@@ -241,8 +246,11 @@ function placeTetromino(){
 
 // ! change for forEach()
 
+const score = document.querySelector('.score')
+
 function findFilledRows() {
     const filledRows = [];
+    let result = 0;
     for (let row = 0; row < PLAYFIELD_ROWS; row++) {
         let filledColumns = 0;
         for (let column = 0; column < PLAYFIELD_COLUMNS; column++) {
@@ -252,21 +260,30 @@ function findFilledRows() {
         }
         if (PLAYFIELD_COLUMNS === filledColumns) {
             filledRows.push(row);
+            result += 10;
+            score.innerHTML = result;
         }
     }
+    
     return filledRows;
 }
 
+
+
 function dropRowsAbove(rowDelete) {
+  
     for (let row = rowDelete; row > 0; row--) {
-        playfield[row] = playfield[row - 1];
+        playfield[row] = playfield[row - 1];        
     }
-    playfield[0] = new Array(PLAYFIELD_COLUMNS).fill(0);
+    playfield[0] = new Array(PLAYFIELD_COLUMNS).fill(0);    
 }
 
 function removeFilledRows(filledRows) {
     filledRows.forEach(row => {
         dropRowsAbove(row);
+        
+        
+        
 
         // for (let i = 0; i < filledRows.length; i++) {
         //     const row = filledRows[i];
@@ -296,4 +313,8 @@ function rotateTetromino() {
     }
     draw();
 }
+
+let interval = setInterval(() => {
+  moveAutoDown();
+}, 1700)
 

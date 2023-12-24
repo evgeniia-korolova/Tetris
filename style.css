@@ -4,12 +4,13 @@
 
 body {
     height: 100vh;
+    height: 100svh;
     background: linear-gradient(90deg, rgb(31, 31, 193), rgb(41, 188, 36));
     user-select: none;
    display: flex;
    justify-content: center;
    align-items: center;
-  
+  position: relative;
      /* background-color: rgba(11, 11,146, .3); */
 }
 
@@ -29,8 +30,8 @@ body {
     background-color: rgba(208, 138, 138, 0.205);
     border-radius: 0.3vh;
     box-shadow: 
-        inset 2px 2px 2px rgba(184, 146, 146, 0.271),
-        inset -2px -2px 2px rgba(22, 87, 217, 0.271);
+        inset 2px 2px 2px rgba(59, 54, 54, 0.271),
+        inset -2px -2px 2px rgba(12, 49, 123, 0.271);
 }
 
 .tetris .O {
@@ -54,4 +55,18 @@ body {
 }
 .tetris .I {
     background: rgb(246, 124, 221);
+}
+
+.score {
+    position: absolute;
+    top: 10%;
+    right: 10%;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #e3df65;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 48px;
 }
