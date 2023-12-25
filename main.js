@@ -261,7 +261,7 @@ function findFilledRows() {
         if (PLAYFIELD_COLUMNS === filledColumns) {
             filledRows.push(row);
             result += 10;
-            score.innerHTML = result;
+            score.innerHTML += result;
         }
     }
     
