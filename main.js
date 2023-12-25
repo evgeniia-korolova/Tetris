@@ -52,6 +52,9 @@ const TETROMINOES = {
 
 let playfield;
 let tetromino;
+let timeoutId;
+let requestId;
+let score = 0;
 
 function getRandomElement(array) {
     const randomIndex = Math.floor(Math.random() * array.length);
@@ -94,8 +97,8 @@ const cells = document.querySelectorAll('.tetris div');
 function generateTetromino() {
     const nameTetro = getRandomElement(TETROMINO_NAMES);
     const matrixTetro = TETROMINOES[nameTetro];
-    const rowTetro = 0;
-    // const rowTetro = -2;
+    // const rowTetro = 0;
+    const rowTetro = -2;
     const columnTetro = Math.floor(PLAYFIELD_COLUMNS / 2 - matrixTetro.length / 2);
     const colorTetro = randomColor();
 
@@ -130,31 +133,30 @@ function drawTetromino(){
 
     for(let row = 0; row < tetrominoMatrixSize; row++){
         for(let column = 0; column < tetrominoMatrixSize; column++){
+             if (tetromino.row + row < 0) { continue }
             if(tetromino.matrix[row][column] == 0){ continue }
             
             const cellIndex = convertPositionToIndex(tetromino.row + row, tetromino.column + column);
-            cells[cellIndex].classList.add(name);
+            cells[cellIndex].classList.add(name);            
         }
     }
 }
 
-// drawTetromino();
 
-function moveAutoDown() {
-    draw();
-    moveTetrominoDown() 
-}
+
+// function moveAutoDown() {    
+//     draw();
+//     moveTetrominoDown() 
+// }
 
 function draw(){
     cells.forEach(function (cell) {
-        cell.removeAttribute('class');
-       
+        cell.removeAttribute('class');       
     });
     drawPlayField();
     drawTetromino();
     // console.table(playfield)
 }
-
 
 
 // klava
@@ -164,7 +166,7 @@ document.addEventListener('keydown', onKeyDown);
 function onKeyDown(event) {
     // console.log(event);
     switch (event.key) {
-        case ' ':
+        case 'Enter':
             rotateTetromino();
             break;
         case 'ArrowDown':
@@ -224,8 +226,8 @@ function isOutsideOfGameBoard(row, column){
 // collision
 
 function hasCollisions(row, column) {
-    return playfield[tetromino.row + row][tetromino.column + column];
-    // return playfield[tetromino.row + row]?.[tetromino.column + column];
+    // return playfield[tetromino.row + row][tetromino.column + column];
+    return playfield[tetromino.row + row]?.[tetromino.column + column];
 }
 
 function placeTetromino(){
@@ -244,13 +246,16 @@ function placeTetromino(){
     generateTetromino();
 }
 
+const scoreSection = document.querySelector('.score')
+
+
 // ! change for forEach()
 
-const score = document.querySelector('.score')
+
 
 function findFilledRows() {
     const filledRows = [];
-    let result = 0;
+   
     for (let row = 0; row < PLAYFIELD_ROWS; row++) {
         let filledColumns = 0;
         for (let column = 0; column < PLAYFIELD_COLUMNS; column++) {
@@ -259,12 +264,9 @@ function findFilledRows() {
             }
         }
         if (PLAYFIELD_COLUMNS === filledColumns) {
-            filledRows.push(row);
-            result += 10;
-            score.innerHTML = result;
+            filledRows.push(row);           
         }
-    }
-    
+    }    
     return filledRows;
 }
 
@@ -278,18 +280,38 @@ function dropRowsAbove(rowDelete) {
     playfield[0] = new Array(PLAYFIELD_COLUMNS).fill(0);    
 }
 
+function countScore(destroyRows){
+    switch(destroyRows){
+        case 1:
+            score += 10;
+            break;
+        case 2:
+            score += 30;
+            break;
+        case 3:
+            score += 50;
+            break;
+        case 4:
+            score += 100;
+            break;
+        default:
+            score += 0;
+    }
+    scoreSection.innerHTML = score;
+}
+
+
 function removeFilledRows(filledRows) {
     filledRows.forEach(row => {
         dropRowsAbove(row);
         
         
-        
-
         // for (let i = 0; i < filledRows.length; i++) {
         //     const row = filledRows[i];
         //     dropRowsAbove(row)
         // }
-})
+    })
+     countScore(filledRows.length);
 }
 
 function rotateMatrix(matrixTetromino) {
@@ -314,9 +336,30 @@ function rotateTetromino() {
     draw();
 }
 
-let interval = setInterval(() => {
-  moveAutoDown();
-}, 1700)
+function moveDown(){
+    moveTetrominoDown();
+    draw();
+    stopLoop();
+    startLoop();
+}
+
+function startLoop() {
+    timeoutId = setTimeout(
+        () => (requestId = requestAnimationFrame(moveDown)),
+        1000
+    );
+}
+
+startLoop()
+
+function stopLoop(){
+    cancelAnimationFrame(requestId);
+    timeoutId = clearTimeout(timeoutId);
+}
+
+// let interval = setInterval(() => {
+//   moveAutoDown();
+// }, 1700)
 
 // mouse controlls
 

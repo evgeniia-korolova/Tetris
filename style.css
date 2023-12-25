@@ -11,6 +11,7 @@ body {
    justify-content: center;
    align-items: center;
   position: relative;
+  gap: 50px;
      /* background-color: rgba(11, 11,146, .3); */
 }
 
@@ -57,10 +58,29 @@ body {
     background: rgb(246, 124, 221);
 }
 
+.options {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.options div {
+   background: #e3df65;
+   padding: 10px;
+   text-transform: uppercase;
+   border-radius: 20px;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+}
+
 .score {
-    position: absolute;
+    /* position: absolute;
     top: 10%;
-    right: 10%;
+    right: 10%; */
     width: 100px;
     height: 100px;
     border-radius: 50%;
@@ -72,11 +92,11 @@ body {
 }
 
 .controlls {
-     position: absolute;
+     /* position: absolute;
     bottom: 20%;
     right: 5%;
     width: 20%;
-    height: 30%;
+    height: 30%; */
     font-size: 16px;
     font-weight: 600;
     color: rgb(252, 177, 36);
