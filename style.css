@@ -1,5 +1,6 @@
 * {
     margin: 0;
+    box-sizing: border-box;
 }
 
 body {
@@ -8,10 +9,11 @@ body {
     background: linear-gradient(90deg, rgb(31, 31, 193), rgb(41, 188, 36));
     user-select: none;
    display: flex;
-   justify-content: center;
+   justify-content: space-between;
    align-items: center;
   position: relative;
-  gap: 50px;
+  gap: 20px;
+  padding: 0 100px;
      /* background-color: rgba(11, 11,146, .3); */
 }
 
@@ -31,8 +33,8 @@ body {
     background-color: rgba(208, 138, 138, 0.205);
     border-radius: 0.3vh;
     box-shadow: 
-        inset 2px 2px 2px rgba(59, 54, 54, 0.271),
-        inset -2px -2px 2px rgba(12, 49, 123, 0.271);
+        inset 2px 2px 2px rgba(52, 49, 49, 0.271),
+        inset -2px -2px 2px rgba(4, 21, 56, 0.271);
 }
 
 .tetris .O {
@@ -61,7 +63,9 @@ body {
 .options {
     display: flex;
     gap: 20px;
+     width: 25%;
     flex-wrap: wrap;
+justify-content: center;
 }
 
 .options div {
@@ -69,18 +73,19 @@ body {
    padding: 10px;
    text-transform: uppercase;
    border-radius: 20px;
+   font-size: 16px;  
+   text-align: center;
 }
 
 .info {
     display: flex;
     flex-direction: column;
     gap: 100px;
+    width: 25%;
 }
 
 .score {
-    /* position: absolute;
-    top: 10%;
-    right: 10%; */
+    
     width: 100px;
     height: 100px;
     border-radius: 50%;
@@ -92,11 +97,7 @@ body {
 }
 
 .controlls {
-     /* position: absolute;
-    bottom: 20%;
-    right: 5%;
-    width: 20%;
-    height: 30%; */
+   
     font-size: 16px;
     font-weight: 600;
     color: rgb(252, 177, 36);
@@ -123,6 +124,49 @@ body {
 
 .right-arrow {
     transform: rotate(-90deg);
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+   
+    background: rgba(8, 1, 29, 0.7);
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    font-size: 28px;
+    color: rgb(233, 223, 21);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 1s;
+}
+
+.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.visible {
+    opacity: 1;
+     visibility: visible;
+}
+
+.restart {
+    font-size: 32px;
+    padding: 30px;
+    text-transform: uppercase;
+    border-radius: 30px;
+    border: none;
+    background: rgb(233, 223, 21);
+    font-weight: 600;
+    color: rgb(7, 7, 66);
+    cursor: pointer;
 }
 
 
