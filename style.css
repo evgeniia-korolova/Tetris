@@ -87,6 +87,7 @@ justify-content: center;
 .info-top {
     display: flex;
     gap: 20px;
+    flex-wrap: wrap;
 }
 
 .score {
@@ -94,20 +95,17 @@ justify-content: center;
     width: 100px;
     height: 80px;
     border-radius: 30px;
-    background: #e3df65;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background: #e3df65;   
     font-size: 48px;
      display: flex;
     justify-content: center;
     align-items: center;
+    padding: 20px; 
 }
 
 .restart-field {
     font-size: 20px;
-    padding: 20px;
-     /* width: 100px; */
+    padding: 20px;    
     text-transform: uppercase;
     border-radius: 30px;
     border: none;
