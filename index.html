@@ -9,18 +9,23 @@
 <body>
   <div class="overlay">
     <div class="game-info">Game is over</div>
+    <div class="game-info final-score"></div>
+
     <button class="restart"> Restart</button>
   </div>
     <div class="options">
-      <div class="easy">Easy</div>
+      <div class="easy">Light</div>
       <div class="middle">Middle</div>
-      <div class="high">High</div>
+      <div class="high">Pro</div>
     </div>
 
     <div class="tetris"></div>
 
     <div class="info">
+      <div class="info-top">
       <div class="score">0</div>
+      <button class="restart-field">restart</button>
+      </div>
       <div class="controlls">
         
           <div class="controlls__item down">
@@ -45,6 +50,13 @@
             <img class="rotate-icon" src="./img/rotate-icon.svg" alt="rotate">
           </div>
         <div class="controlls__item">Enter</div>
+
+          <div class="controlls__item space">Space           
+          </div>
+        <div class="controlls__item">Drop down</div>
+          <div class="controlls__item pause">p           
+          </div>
+        <div class="controlls__item">Pause</div>
         
         
       </div>
@@ -52,7 +64,7 @@
     
     
 
-  <script src="./main.js"></script>
+  <script type="module" src="./main.js"></script>
 
 </body>
 </html>

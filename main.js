@@ -1,76 +1,34 @@
+
+
+import {
+    PLAYFIELD_COLUMNS,
+    PLAYFIELD_ROWS,
+    TETROMINO_NAMES,
+    TETROMINOES,
+    
+    scoreSection,
+    gameOverBlock,
+        restartBtn,
+
+} from './utils.js';
 // ДЗ №3
-// 1. Зробити розмітку висновків гри по її завершенню
-// 2. Зверстати окрему кнопку рестарт, що перезапускатиме гру посеред гри
-// 3. Додати клавіатуру на екрані браузеру для руху фігур
+// ? 1. Зробити розмітку висновків гри по її завершенню
+// ? 2. Зверстати окрему кнопку рестарт, що перезапускатиме гру посеред гри
+// ? 3. Додати клавіатуру на екрані браузеру для руху фігур
 
 // 4. Створити секцію, що відображатиме наступну фігуру, що випадатиме
 // 5. Додати рівні гри при котрих збільшується швидкість 
 //    падіння фігур та виводити їх на екран
 // 6. Зберігати і виводити найкращий власний результат
 
-
-const PLAYFIELD_COLUMNS = 10;
-const PLAYFIELD_ROWS = 20;
-
-const TETROMINO_NAMES = [
-    'O',
-    'L',
-    'J',
-    'S',
-    'Z',
-    'I',
-    'T'
-];
-
-const TETROMINOES = {
-    'O': [
-        [1, 1],
-        [1, 1]
-    ],
-    'L': [
-        [0, 0, 1],
-        [1, 1, 1],
-        [0, 0, 0],
-    ],
-    'J': [
-        [0, 1, 1],
-        [0, 1, 0],
-        [0, 1, 0],
-    ],
-    'S': [
-        [0, 1, 1],
-        [1, 1, 0],
-        [0, 0, 0],
-    ],
-    'Z': [
-        [1, 1, 0],
-        [0, 1, 1],
-        [0, 0, 0],
-    ],
-    'I': [
-        [0, 0, 0, 0],
-        [1, 1, 1, 1],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0]
-    ],
-    'T': [        
-        [1, 1, 1],
-        [0, 1, 0],
-        [0, 0, 0],
-    ]
-};
-
-
-let playfield;
-let tetromino;
-let timeoutId;
-let requestId;
-let score = 0;
-const scoreSection = document.querySelector('.score');
-let isPaused = false;
-let isGameOver = false;
-const gameOverBlock = document.querySelector('.overlay');
-const restartBtn = document.querySelector('.restart');
+ let playfield,
+        tetromino,
+        timeoutId,
+        requestId,
+        cells,
+        score = 0,
+        isPaused = false,
+        isGameOver = false;
 
 function getRandomElement(array) {
     const randomIndex = Math.floor(Math.random() * array.length);
@@ -103,13 +61,11 @@ function generatePlayField() {
     playfield = new Array(PLAYFIELD_ROWS).fill()
         .map(() => new Array(PLAYFIELD_COLUMNS).fill(0))
     
-    console.log(playfield)
+    // console.log(playfield)
 }
 
 generatePlayField();
 
-let cells;
-// console.log(cells);
 
 function generateTetromino() {
     const nameTetro = getRandomElement(TETROMINO_NAMES);
@@ -195,7 +151,7 @@ function draw(){
 
 // klava
 
-document.addEventListener('keydown', onKeyDown);
+
 
 function togglePauseGame() {
     isPaused = !isPaused;
@@ -206,6 +162,8 @@ function togglePauseGame() {
         startLoop();
     }
 }
+
+document.addEventListener('keydown', onKeyDown);
 
 function onKeyDown(event) {
     // console.log(event);
@@ -409,9 +367,12 @@ function moveDown(){
     }
 }
 
+let finalScore = document.querySelector('.final-score');
+
 function gameOver() {
     stopLoop();
     gameOverBlock.classList.add('visible');
+    finalScore.innerHTML = `Your current score ${score}`;
 }
 
 
@@ -423,7 +384,7 @@ function startLoop() {
     );
 }
 
-startLoop()
+// startLoop()
 
 function stopLoop(){
     cancelAnimationFrame(requestId);
@@ -440,8 +401,15 @@ const down = document.querySelector('.down');
 const left = document.querySelector('.left');
 const right = document.querySelector('.right');
 const rotate = document.querySelector('.rotate');
+const drop = document.querySelector('.space');
+const pauseGame = document.querySelector('.pause');
+const restartField = document.querySelector('.restart-field');
+
 
 down.addEventListener('click', moveTetrominoDown);
 left.addEventListener('click', moveTetrominoLeft);
 right.addEventListener('click', moveTetrominoRight);
 rotate.addEventListener('click', rotateTetromino);
+drop.addEventListener('click', dropTetrominoDown);
+pauseGame.addEventListener('click', togglePauseGame);
+restartField.addEventListener('click', init);
