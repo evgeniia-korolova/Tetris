@@ -28,7 +28,12 @@ import {
         cells,
         score = 0,
         isPaused = false,
-        isGameOver = false;
+    isGameOver = false;
+        
+    let light = document.querySelector('.easy');
+let middle = document.querySelector('.middle');
+let pro = document.querySelector('.high');
+let speed = 3000;
 
 function getRandomElement(array) {
     const randomIndex = Math.floor(Math.random() * array.length);
@@ -150,8 +155,6 @@ function draw(){
 
 
 // klava
-
-
 
 function togglePauseGame() {
     isPaused = !isPaused;
@@ -377,10 +380,28 @@ function gameOver() {
 
 
 
+function selectLevel() {
+    light.addEventListener('click', () => {
+        speed = 2000;
+    })
+    middle.addEventListener('click', () => {
+        speed = 1000;
+    })
+    pro.addEventListener('click', () => {
+        speed = 500;
+    })
+    console.log(speed);
+}
+
+selectLevel();
+
+
 function startLoop() {
+    
+    selectLevel();
     timeoutId = setTimeout(
         () => (requestId = requestAnimationFrame(moveDown)),
-        1000
+        speed
     );
 }
 
